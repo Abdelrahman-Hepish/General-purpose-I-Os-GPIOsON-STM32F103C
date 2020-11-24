@@ -63,4 +63,15 @@
 
 #define SET_GPIO_MODE(REG,PIN,VAL)   (REG |= (VAL<<(PIN*4)))
 #define SET_GPIO_CNG(REG,PIN,VAL)    (REG |= (VAL<<((PIN*4)+2)))
+
+typedef enum
+{
+  PORT_A_CRL ,
+  PORT_A_CRH ,
+  PORT_B_CRL ,
+  PORT_B_CRH ,
+  PORT_C_CRL ,
+  PORT_C_CRH ,
+}PORTX_CR;
+
 #endif //__GPIO_PRIVATE_H__
