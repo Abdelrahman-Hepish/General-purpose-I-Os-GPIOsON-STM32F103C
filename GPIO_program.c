@@ -12,116 +12,77 @@
 #include "GPIO_private.h"
 #include "GPIO_config.h"
 
-void GPIO_InitPinConfig(tPort port ,u8 pin ,tPinMode pin_mode ,tPinConfig pin_config ) 
+void GPIO_InitPinConfig(tPort port ,u8 pin ,tPinMode pin_mode_key ,tPinConfig pin_config_key )
 {
+	PORTX_CR  port_x_CRX = PORT_A_CRL ;
+	/* change settings of selected scope of the port */
     switch(port)
 	{
 		case PORT_A :
 		if(pin <=7 && pin >= 0) // PORTA_CRL
 		{
-			CLEAR_NIBBLE(PORTA_CRL,pin) ;
-            switch(pin_mode)
-			{
-             case INPUT         : SET_GPIO_MODE(PORTA_CRL,pin,GPIO_MODE_INPUT)       ; break; 
-             case OUTPUT_10MHZ  : SET_GPIO_MODE(PORTA_CRL,pin,GPIO_MODE_OUTPUT_10MHZ); break;
-             case OUTPUT_2MHZ   : SET_GPIO_MODE(PORTA_CRL,pin,GPIO_MODE_OUTPUT_2MHZ) ; break;
-             case OUTPUT_50MHZ  : SET_GPIO_MODE(PORTA_CRL,pin,GPIO_MODE_OUTPUT_50MHZ); break;
-             default : /* should not be here */                                        break; 
-			}	
-            switch(pin_config)
-			{
-		     case INPUT_ANALOG         : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_IP_ANALOG     )  ; break ; 
-			 case INPUT_FLOATING       : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_IP_FLOATING   )  ; break ;
-			 case INPUT_PULL_RES       : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_IP_PULL_RES   )  ; break ;
-			 case GP_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_OP_PUSH_PULL  )  ; break ;
-			 case GP_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_OP_OPEN_DRAIN )  ; break ;
-			 case AF_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_AF_PUSH_PULL  )  ; break ;
-			 case AF_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTA_CRL,pin,GPIO_CNF_GP_AF_OPEN_DRAIN )  ; break ;
-			 default                   : /* should not be here */                                  break ;
-			}				
+			port_x_CRX = PORT_A_CRL ;
 		}else if (pin <= 15 && pin >= 8) // PORTA_CRH
 		{
+			port_x_CRX = PORT_A_CRH ;
 			pin -= 8 ;
-			CLEAR_NIBBLE(PORTA_CRH,pin) ;
-			switch(pin_mode)
-			{
-				// error was here  
-             case INPUT         : SET_GPIO_MODE(PORTA_CRH,pin,GPIO_MODE_INPUT)       ; break; 
-             case OUTPUT_10MHZ  : SET_GPIO_MODE(PORTA_CRH,pin,GPIO_MODE_OUTPUT_10MHZ); break;
-             case OUTPUT_2MHZ   : SET_GPIO_MODE(PORTA_CRH,pin,GPIO_MODE_OUTPUT_2MHZ) ; break;
-             case OUTPUT_50MHZ  : SET_GPIO_MODE(PORTA_CRH,pin,GPIO_MODE_OUTPUT_50MHZ); break;
-             default : /* should not be here */                                        break; 
-			}	
-			switch(pin_config)
-			{
-		     case INPUT_ANALOG         : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_IP_ANALOG     )  ; break ; 
-			 case INPUT_FLOATING       : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_IP_FLOATING   )  ; break ;
-			 case INPUT_PULL_RES       : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_IP_PULL_RES   )  ; break ;
-			 case GP_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_OP_PUSH_PULL  )  ; break ;
-			 case GP_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_OP_OPEN_DRAIN )  ; break ;
-			 case AF_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_AF_PUSH_PULL  )  ; break ;
-			 case AF_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTA_CRH,pin,GPIO_CNF_GP_AF_OPEN_DRAIN )  ; break ;
-			 default                   : /* should not be here */                                  break ;
-			}
 		}
 		break ; 
 		case PORT_B :
 		if(pin <=7 && pin >= 0) // PORTB_CRL
 		{
-			CLEAR_NIBBLE(PORTB_CRL,pin) ; 
-			switch(pin_mode)
-			{
-             case INPUT         : SET_GPIO_MODE(PORTB_CRL,pin,GPIO_MODE_INPUT)       ; break; 
-             case OUTPUT_10MHZ  : SET_GPIO_MODE(PORTB_CRL,pin,GPIO_MODE_OUTPUT_10MHZ); break;
-             case OUTPUT_2MHZ   : SET_GPIO_MODE(PORTB_CRL,pin,GPIO_MODE_OUTPUT_2MHZ) ; break;
-             case OUTPUT_50MHZ  : SET_GPIO_MODE(PORTB_CRL,pin,GPIO_MODE_OUTPUT_50MHZ); break;
-             default : /* should not be here */                                        break; 
-			}	
-			switch(pin_config)
-			{
-		     case INPUT_ANALOG         : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_IP_ANALOG     )  ; break ; 
-			 case INPUT_FLOATING       : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_IP_FLOATING   )  ; break ;
-			 case INPUT_PULL_RES       : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_IP_PULL_RES   )  ; break ;
-			 case GP_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_OP_PUSH_PULL  )  ; break ;
-			 case GP_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_OP_OPEN_DRAIN )  ; break ;
-			 case AF_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_AF_PUSH_PULL  )  ; break ;
-			 case AF_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTB_CRL,pin,GPIO_CNF_GP_AF_OPEN_DRAIN )  ; break ;
-			 default                   : /* should not be here */                                  break ;
-			}
+			port_x_CRX = PORT_B_CRL ;
 		}else if (pin <= 15 && pin >= 8) // PORTB_CRH
 		{
+			port_x_CRX = PORT_B_CRH ;
 			pin -= 8 ;
-			CLEAR_NIBBLE(PORTB_CRH,pin) ;
-			switch(pin_mode)
-			{
-             case INPUT         : SET_GPIO_MODE(PORTB_CRH,pin,GPIO_MODE_INPUT)       ; break; 
-             case OUTPUT_10MHZ  : SET_GPIO_MODE(PORTB_CRH,pin,GPIO_MODE_OUTPUT_10MHZ); break;
-             case OUTPUT_2MHZ   : SET_GPIO_MODE(PORTB_CRH,pin,GPIO_MODE_OUTPUT_2MHZ) ; break;
-             case OUTPUT_50MHZ  : SET_GPIO_MODE(PORTB_CRH,pin,GPIO_MODE_OUTPUT_50MHZ); break;
-             default : /* should not be here */                                        break; 
-			}
-			switch(pin_config)
-			{
-		     case INPUT_ANALOG         : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_IP_ANALOG     )  ; break ; 
-			 case INPUT_FLOATING       : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_IP_FLOATING   )  ; break ;
-			 case INPUT_PULL_RES       : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_IP_PULL_RES   )  ; break ;
-			 case GP_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_OP_PUSH_PULL  )  ; break ;
-			 case GP_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_OP_OPEN_DRAIN )  ; break ;
-			 case AF_OUTPUT_PUSH_PULL  : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_AF_PUSH_PULL  )  ; break ;
-			 case AF_OUTPUT_OPEN_DRAIN : SET_GPIO_CNG(PORTB_CRH,pin,GPIO_CNF_GP_AF_OPEN_DRAIN )  ; break ;
-			 default                   : /* should not be here */                                  break ;
-			}
 		}
 		break ;
 		case PORT_C :
 		if(pin <=15 && pin >= 13) // i don't know which register i has to choose between (PORTC_CRL or PORTC_CRH)
 		{
-			
+			port_x_CRX = PORT_C_CRH ;
+			pin -= 8 ;
 		}
 		break ;
 		default :
 		/* should not be here */
 		break ; 
+     }
+    /* reset the scope of the pin */
+   /* set the mode and the configuration */
+   switch (port_x_CRX)
+   {
+     case PORT_A_CRL :
+    	              CLEAR_NIBBLE(PORTA_CRL,pin) ;
+    	              SET_GPIO_MODE(PORTA_CRL,pin,pin_mode_key) ;
+    	              SET_GPIO_CNG(PORTA_CRL,pin,pin_config_key ) ;
+    	              break;
+     case PORT_A_CRH :
+    	              CLEAR_NIBBLE(PORTA_CRH,pin) ;
+                      SET_GPIO_MODE(PORTA_CRH,pin,pin_mode_key) ;
+                      SET_GPIO_CNG(PORTA_CRH,pin,pin_config_key ) ;
+                      break;
+     case PORT_B_CRL :
+    	              CLEAR_NIBBLE(PORTB_CRL,pin) ;
+    	              SET_GPIO_MODE(PORTB_CRL,pin,pin_mode_key) ;
+    	              SET_GPIO_CNG(PORTB_CRL,pin,pin_config_key ) ;
+    	              break;
+     case PORT_B_CRH :
+    	              CLEAR_NIBBLE(PORTB_CRH,pin) ;
+    	              SET_GPIO_MODE(PORTB_CRH,pin,pin_mode_key) ;
+                      SET_GPIO_CNG(PORTB_CRH,pin,pin_config_key ) ;
+                      break;
+     case PORT_C_CRL :
+    	              break;
+     case PORT_C_CRH :
+    	              CLEAR_NIBBLE(PORTC_CRH,pin) ;
+    	              SET_GPIO_MODE(PORTC_CRH,pin,pin_mode_key) ;
+					  SET_GPIO_CNG(PORTC_CRH,pin,pin_config_key ) ;
+					  break;
+     default          :
+    	              /* should not be here */
+    	              break;
 	}
 }	
 void GPIO_SetPintState(tPort port , u8 pin ,tPinState state )
