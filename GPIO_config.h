@@ -34,6 +34,11 @@ typedef enum
 }tPort ;
 typedef enum 
 {
+	LOW_PART   ,
+	HIGH_PART
+}tHalfPart_Port;
+typedef enum
+{
 	INPUT_ANALOG         = 0B00  ,
 	INPUT_FLOATING       = 0B01  ,
     INPUT_PULL_RES       = 0B10  ,  // for pull down make PxODR = 0 , and for pull up make PxODR = 1

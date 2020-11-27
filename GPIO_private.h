@@ -9,6 +9,9 @@
 #ifndef __GPIO_PRIVATE_H__
 #define __GPIO_PRIVATE_H__
 
+#define  PORT_BREAK            8
+#define  PORT_SIZE            15
+
 #define  GPIO_Port_A_BASE     0x40010800
 #define  GPIO_Port_B_BASE     0x40010C00
 #define  GPIO_Port_C_BASE     0x40011000
@@ -62,7 +65,7 @@
 #define GPIO_CNF_GP_IP_PULL_RES           0B10
 
 #define SET_GPIO_MODE(REG,PIN,VAL)   (REG |= (VAL<<(PIN*4)))
-#define SET_GPIO_CNG(REG,PIN,VAL)    (REG |= (VAL<<((PIN*4)+2)))
+#define SET_GPIO_CNFG(REG,PIN,VAL)    (REG |= (VAL<<((PIN*4)+2)))
 
 typedef enum
 {
